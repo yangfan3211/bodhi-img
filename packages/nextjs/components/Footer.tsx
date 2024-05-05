@@ -33,17 +33,12 @@ export const Footer = () => {
         <ul className="menu menu-horizontal w-full">
           <div className="flex justify-center items-center gap-2 text-sm w-full">
             <div className="text-center">
-              <a href="https://github.com/NonceGeek/bodhi-searcher" target="_blank" rel="noreferrer" className="link">
+              <a href="https://github.com/rootmud/bodhi-img" target="_blank" rel="noreferrer" className="link">
                 ✰ Star me
               </a>
             </div>
             <div className="text-center">
-              <a
-                href="https://github.com/NonceGeek/bodhi-searcher/issues"
-                target="_blank"
-                rel="noreferrer"
-                className="link"
-              >
+              <a href="https://github.com/rootmud/bodhi-img/issues" target="_blank" rel="noreferrer" className="link">
                 🤔 Any Suggestions
               </a>
             </div>
