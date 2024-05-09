@@ -1,130 +1,196 @@
 const contracts = {
-  // modifile here.
-  10: [
+  31337: [
     {
-      chainId: "10",
-      name: "optimism",
+      chainId: "31337",
+      name: "localhost",
       contracts: {
-        VectorDBProposalGovernancer: {
-          address: "0x604dcaEC4E9ad55737F00D87B47ae497d2d78608",
+        YourContract: {
+          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
           abi: [
             {
-              "inputs": [
-                {
-                  "internalType": "string",
-                  "name": "_vectorName",
-                  "type": "string"
-                }
-              ],
-              "stateMutability": "nonpayable",
-              "type": "constructor"
+              inputs: [],
+              stateMutability: "nonpayable",
+              type: "constructor",
             },
             {
-              "anonymous": false,
-              "inputs": [
+              inputs: [],
+              name: "chairperson",
+              outputs: [
                 {
-                  "indexed": false,
-                  "internalType": "string",
-                  "name": "uuid",
-                  "type": "string"
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "_title",
+                  type: "string",
                 },
                 {
-                  "indexed": false,
-                  "internalType": "bool",
-                  "name": "decide",
-                  "type": "bool"
-                }
+                  internalType: "string",
+                  name: "_content",
+                  type: "string",
+                },
               ],
-              "name": "JudgeSet",
-              "type": "event"
+              name: "createProposal",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
             },
             {
-              "inputs": [
+              inputs: [
                 {
-                  "internalType": "string",
-                  "name": "_uuid",
-                  "type": "string"
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+              ],
+              name: "delegate",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint32",
+                  name: "id",
+                  type: "uint32",
+                },
+              ],
+              name: "getProposal",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "string",
+                      name: "title",
+                      type: "string",
+                    },
+                    {
+                      internalType: "string",
+                      name: "content",
+                      type: "string",
+                    },
+                    {
+                      internalType: "address",
+                      name: "proposaler",
+                      type: "address",
+                    },
+                    {
+                      internalType: "uint256",
+                      name: "voteCount",
+                      type: "uint256",
+                    },
+                  ],
+                  internalType: "struct YourContract.Proposal",
+                  name: "",
+                  type: "tuple",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "voter",
+                  type: "address",
+                },
+              ],
+              name: "giveRightToVote",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "proposals",
+              outputs: [
+                {
+                  internalType: "string",
+                  name: "title",
+                  type: "string",
                 },
                 {
-                  "internalType": "bool",
-                  "name": "_decide",
-                  "type": "bool"
-                }
-              ],
-              "name": "judgeTag",
-              "outputs": [],
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "string",
-                  "name": "_uuid",
-                  "type": "string"
+                  internalType: "string",
+                  name: "content",
+                  type: "string",
                 },
                 {
-                  "internalType": "string",
-                  "name": "_meta_data",
-                  "type": "string"
-                }
-              ],
-              "name": "tagItem",
-              "outputs": [],
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "anonymous": false,
-              "inputs": [
-                {
-                  "indexed": true,
-                  "internalType": "address",
-                  "name": "tagger",
-                  "type": "address"
+                  internalType: "address",
+                  name: "proposaler",
+                  type: "address",
                 },
                 {
-                  "indexed": false,
-                  "internalType": "string",
-                  "name": "uuid",
-                  "type": "string"
+                  internalType: "uint256",
+                  name: "voteCount",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "proposal",
+                  type: "uint256",
+                },
+              ],
+              name: "vote",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "voters",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "weight",
+                  type: "uint256",
                 },
                 {
-                  "indexed": false,
-                  "internalType": "string",
-                  "name": "metadata",
-                  "type": "string"
-                }
-              ],
-              "name": "TagSet",
-              "type": "event"
-            },
-            {
-              "inputs": [],
-              "name": "chairperson",
-              "outputs": [
+                  internalType: "bool",
+                  name: "voted",
+                  type: "bool",
+                },
                 {
-                  "internalType": "address",
-                  "name": "",
-                  "type": "address"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [],
-              "name": "vectorName",
-              "outputs": [
+                  internalType: "address",
+                  name: "delegate",
+                  type: "address",
+                },
                 {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
-                }
+                  internalType: "uint256",
+                  name: "vote",
+                  type: "uint256",
+                },
               ],
-              "stateMutability": "view",
-              "type": "function"
-            }
+              stateMutability: "view",
+              type: "function",
+            },
           ],
         },
       },
