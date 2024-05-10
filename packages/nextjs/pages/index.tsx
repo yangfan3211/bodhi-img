@@ -45,11 +45,11 @@ const ETHSpace: NextPage = () => {
       });
       const data = await response.json();
       // Assuming the data format matches what the ImgShow component expects
-      const formattedImages = data.images.map((img: { link: any; id_on_chain: string }) => ({
+      const formattedImages = data.images.map((img: { link: any; id_on_chain: string, category: string }) => ({
         image: img.link,
         link: "https://bodhi.wtf/" + img.id_on_chain,
-        category: categoriesArray[0] || "",
-        id: img.id_on_chain
+        category: img.category || "",
+        id: img.id_on_chain,
       }));
       setImages(formattedImages);
     } catch (error) {

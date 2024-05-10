@@ -25,7 +25,7 @@ const ImageShowItem = ({ img }) => {
   const { writeAsync, isLoading } = useScaffoldContractWrite({
     contractName: "AssetTagger",
     functionName: "tagItem",
-    args: [BigInt(img.id), JSON.stringify({ like: 1 })],
+    args: [BigInt(img.id), JSON.stringify({ like: likes + 1 })],
     value: parseEther("0"),
     onBlockConfirmation: txnReceipt => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
@@ -36,13 +36,14 @@ const ImageShowItem = ({ img }) => {
 const useTagsIndexByAsset = (assetId) => {
   // Convert assetId to BigInt for the blockchain function call
   const assetIdAsBigInt = BigInt(assetId);
-
+  
   const { data, isLoading, error } = useScaffoldContractRead({
     contractName: "AssetTagger",
     functionName: "tagsIndexByAsset",
     args: [assetIdAsBigInt],
   });
 
+  
   useEffect(() => {
     if (data) {
       console.log(data); // Log the raw data for debugging
@@ -69,7 +70,7 @@ const useTagsIndexByAsset = (assetId) => {
 };
 
   // Smart contract read operation to fetch asset tags
-  const { data: tagsData, isLoading: isReading, error } = useTagsIndexByAsset(img.id);
+  useTagsIndexByAsset(img.id);
   // -->
   const [isLiked, setIsLiked] = useState(false);
   const toggleLike = () => {
@@ -83,7 +84,7 @@ const useTagsIndexByAsset = (assetId) => {
       <div className="w-full h-[calc(100%-2rem)]">
         <Link
           className="absolute top w-full h-[calc(100%-2rem)] inset-0 z-10"
-          href={image.link}
+          href={img.link}
           target="_blank" // Opens the link in a new tab
           rel="noopener noreferrer" // Security measure for opening links in a new tab
         >
@@ -93,14 +94,14 @@ const useTagsIndexByAsset = (assetId) => {
           alt={`Image`}
           className="aspect-square object-cover w-full h-full"
           height={400}
-          src={image.image}
+          src={img.image}
           width={400}
         />
       </div>
 
       <div className="px-2 h-8 w-full bg-sky-500 flex justify-between items-center">
         <div className="space-x-2">
-          <div className="badge badge-outline">{image.category}</div>
+          <div className="badge badge-outline">{img.category}</div>
         </div>
         <div className="flex items-center">
           <button onClick={toggleLike} className="flex items-center justify-center">
