@@ -48,7 +48,8 @@ const ETHSpace: NextPage = () => {
       const formattedImages = data.images.map((img: { link: any; id_on_chain: string }) => ({
         image: img.link,
         link: "https://bodhi.wtf/" + img.id_on_chain,
-        category: categoriesArray[0] || "nsfw",
+        category: categoriesArray[0] || "",
+        id: img.id_on_chain
       }));
       setImages(formattedImages);
     } catch (error) {
