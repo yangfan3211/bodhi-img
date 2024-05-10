@@ -4,7 +4,7 @@
   <a href="https://bodhi-img.vercel.app"> -[ Lanuch App ]- </a>
 </h4>
 
-🧪 Bodhi Img 查看 Bodhi 上的图片。
+🧪 Browse and like images on the Bodhi!
 
 > Smart Contract:
 > 
