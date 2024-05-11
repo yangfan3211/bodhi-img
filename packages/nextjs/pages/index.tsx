@@ -9,7 +9,18 @@ const ETHSpace: NextPage = () => {
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [maxPage, setMaxPage] = useState(1);
+  const onNextPage = () => {
+    if (pageIndex < maxPage) {
+      setPageIndex(pageIndex + 1);
+    }
+  };
 
+  const onPrevPage = () => {
+    if (pageIndex > 1) {
+      setPageIndex(pageIndex - 1);
+    }
+  };
   // Fetch images from your backend
   const fetchImages = async (page: number) => {
     setLoading(true);
@@ -36,6 +47,7 @@ const ETHSpace: NextPage = () => {
       });
       const lastedIdData = await cursorResponse.json();
       const cursor = lastedIdData.latestId - (page - 1) * 10;
+      setMaxPage(Math.ceil(lastedIdData.latestId / 10));
       const categoryParams = category === "All" ? "" : `&category=${category}`;
       const response = await fetch(`https://bodhi-data.deno.dev/imgs?cursor=${cursor}&limit=10${categoryParams}`, {
         method: "GET",
@@ -45,7 +57,7 @@ const ETHSpace: NextPage = () => {
       });
       const data = await response.json();
       // Assuming the data format matches what the ImgShow component expects
-      const formattedImages = data.images.map((img: { link: any; id_on_chain: string, category: string }) => ({
+      const formattedImages = data.images.map((img: { link: any; id_on_chain: string; category: string }) => ({
         image: img.link,
         link: "https://bodhi.wtf/" + img.id_on_chain,
         category: img.category || "",
@@ -86,11 +98,11 @@ const ETHSpace: NextPage = () => {
       ) : null}
       <ImgShow images={images} />
       <div className="join flex justify-center items-center">
-        <button onClick={() => setPageIndex(pageIndex - 1)} className="join-item btn">
+        <button onClick={onPrevPage} className="join-item btn">
           «
         </button>
         <button className="join-item btn">Page {pageIndex}</button>
-        <button onClick={() => setPageIndex(pageIndex + 1)} className="join-item btn">
+        <button onClick={onNextPage} className="join-item btn">
           »
         </button>
       </div>
