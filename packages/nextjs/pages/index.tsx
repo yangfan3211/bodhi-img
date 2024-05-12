@@ -11,9 +11,9 @@ const ETHSpace: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [maxPage, setMaxPage] = useState(1);
   const onNextPage = () => {
-    if (pageIndex < maxPage) {
-      setPageIndex(pageIndex + 1);
-    }
+    // if (pageIndex < maxPage) {
+    setPageIndex(pageIndex + 1);
+    // }
   };
 
   const onPrevPage = () => {
@@ -39,29 +39,38 @@ const ETHSpace: NextPage = () => {
       const categoriesString = replaceAfter.substring(2, replaceAfter.length - 2);
       const categoriesArray = categoriesString.split('","');
       setCategories(categoriesArray);
-      const cursorResponse = await fetch("https://bodhi-data.deno.dev/imgs_latest_id", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const lastedIdData = await cursorResponse.json();
-      const cursor = lastedIdData.latestId - (page - 1) * 10;
-      setMaxPage(Math.ceil(lastedIdData.latestId / 10));
+      // const cursorResponse = await fetch("https://bodhi-data.deno.dev/imgs_latest_id", {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+      // const lastedIdData = await cursorResponse.json();
+      // const cursor = lastedIdData.latestId - (page - 1) * 10;
+      // setMaxPage(Math.ceil(lastedIdData.latestId / 10));
+      // const categoryParams = category === "All" ? "" : `&category=${category}`;
+      // const response = await fetch(`https://bodhi-data.deno.dev/imgs?cursor=${cursor}&limit=10${categoryParams}`, {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
       const categoryParams = category === "All" ? "" : `&category=${category}`;
-      const response = await fetch(`https://bodhi-data.deno.dev/imgs?cursor=${cursor}&limit=10${categoryParams}`, {
+      const response = await fetch(`https://bodhi-data.deno.dev/imgs_page?page=${page}&limit=10${categoryParams}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const data = await response.json();
+      console.log(data);
       // Assuming the data format matches what the ImgShow component expects
       const formattedImages = data.images.map((img: { link: any; id_on_chain: string; category: string }) => ({
         image: img.link,
         link: "https://bodhi.wtf/" + img.id_on_chain,
         category: img.category || "",
-        id: img.id_on_chain,
+        id: img.id_on_chain || 0,
       }));
       setImages(formattedImages);
     } catch (error) {

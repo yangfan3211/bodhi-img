@@ -101,7 +101,6 @@ const useTagsIndexByAsset = (assetId) => {
 
       <div className="px-2 h-8 w-full bg-sky-500 flex justify-between items-center">
         <div className="space-x-2">
-<<<<<<< HEAD
           <div className="badge badge-outline">{img.category}</div>
         </div>
         <div className="flex items-center">
@@ -110,16 +109,6 @@ const useTagsIndexByAsset = (assetId) => {
           </button>
           <span className="ml-2 text-sm">{likes}</span> {/* Reduced margin and adjusted text size */}
         </div>
-=======
-          <div className="badge badge-outline">collection #1</div>
-        </div>
-        <div className="flex items-center">
-          <button onClick={toggleLike} className="flex items-center justify-center">
-            {isLiked ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
-          </button>
-          <span className="ml-2 text-sm">{likes}</span> {/* Reduced margin and adjusted text size */}
-        </div>
->>>>>>> 7712ea5 (update with imgshow)
       </div>
     </div>
   );
