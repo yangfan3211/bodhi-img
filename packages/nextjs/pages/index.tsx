@@ -12,16 +12,16 @@ const ETHSpace: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [maxPage, setMaxPage] = useState(1);
   const onNextPage = () => {
-    if (pageIndex < maxPage) {
-      setPageIndex(pageIndex + 1);
-      mutate("https://bodhi-data.deno.dev/imgs_latest_id");
-    }
+    // if (pageIndex < maxPage) {
+    setPageIndex(pageIndex + 1);
+    // mutate("https://bodhi-data.deno.dev/imgs_latest_id");
+    // }
   };
 
   const onPrevPage = () => {
     if (pageIndex > 1) {
       setPageIndex(pageIndex - 1);
-      mutate("https://bodhi-data.deno.dev/imgs_latest_id");
+      // mutate("https://bodhi-data.deno.dev/imgs_latest_id");
     }
   };
   // Fetch images from your backend
@@ -85,29 +85,39 @@ const ETHSpace: NextPage = () => {
   // useEffect(() => {
   //   fetchImages(pageIndex);
   // }, [pageIndex, category]);
-  const { mutate } = useSWRConfig();
-  const [shouldFetchImg, setShouldFetchImg] = useState(false);
-  const [cursor, setCursor] = useState(0);
-  const [shouldCursor, setShouldCursor] = useState(false);
+
+  // const { mutate } = useSWRConfig();
+  // const [shouldFetchImg, setShouldFetchImg] = useState(false);
+  // const [cursor, setCursor] = useState(0);
+  // const [shouldCursor, setShouldCursor] = useState(false);
   const [categoryParams, setCategoryParams] = useState("");
   const { data: categoriesRes, isLoading: categoriesLoading } = swr(
     "https://bodhi-data.deno.dev/constant?key=bodhi_img_categories",
     fetcher,
   );
 
-  const {
-    data: cursorRes,
-    isLoading: cursorLoading,
-    isValidating: cursorValidating,
-  } = swr(shouldCursor ? "https://bodhi-data.deno.dev/imgs_latest_id" : null, fetcher);
+  // const {
+  //   data: cursorRes,
+  //   isLoading: cursorLoading,
+  //   isValidating: cursorValidating,
+  // } = swr(shouldCursor ? "https://bodhi-data.deno.dev/imgs_latest_id" : null, fetcher);
+
+  // const { data: imgRes, isLoading: responseLoading } = swr(
+  //   shouldFetchImg ? `https://bodhi-data.deno.dev/imgs?cursor=${cursor}&limit=10${categoryParams}` : null,
+  //   fetcher,
+  // );
+
   const { data: imgRes, isLoading: responseLoading } = swr(
-    shouldFetchImg ? `https://bodhi-data.deno.dev/imgs?cursor=${cursor}&limit=10${categoryParams}` : null,
+    `https://bodhi-data.deno.dev/imgs_page?page=${pageIndex}&limit=10${categoryParams}`,
     fetcher,
   );
 
+  // useEffect(() => {
+  //   setLoading(categoriesLoading || cursorLoading || responseLoading);
+  // }, [categoriesLoading, cursorLoading, responseLoading]);
   useEffect(() => {
-    setLoading(categoriesLoading || cursorLoading || responseLoading);
-  }, [categoriesLoading, cursorLoading, responseLoading]);
+    setLoading(categoriesLoading || responseLoading);
+  }, [categoriesLoading, responseLoading]);
 
   useEffect(() => {
     if (categoriesRes) {
@@ -116,19 +126,18 @@ const ETHSpace: NextPage = () => {
       const categoriesString = replaceAfter.substring(2, replaceAfter.length - 2);
       const categoriesArray = categoriesString.split('","');
       setCategories(categoriesArray);
-      setShouldCursor(true);
-      // mutate("https://bodhi-data.deno.dev/imgs_latest_id");
+      // setShouldCursor(true);
     }
   }, [categoriesRes]);
 
-  useEffect(() => {
-    console.log(cursorRes);
-    if (cursorRes && cursorValidating == false) {
-      setCursor(cursorRes.latestId - (pageIndex - 1) * 10);
-      setMaxPage(Math.ceil(cursorRes.latestId / 10));
-      setShouldFetchImg(true);
-    }
-  }, [cursorRes, cursorValidating]);
+  // useEffect(() => {
+  //   console.log(cursorRes);
+  //   if (cursorRes && cursorValidating == false) {
+  //     setCursor(cursorRes.latestId - (pageIndex - 1) * 10);
+  //     setMaxPage(Math.ceil(cursorRes.latestId / 10));
+  //     setShouldFetchImg(true);
+  //   }
+  // }, [cursorRes, cursorValidating]);
 
   useEffect(() => {
     if (category) {
